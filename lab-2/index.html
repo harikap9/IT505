@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body bgcolor="#ffffff" text="#000000">
-
+<article>
 <table width="100%" bgcolor="#CCF6F6">
     <tr>
         <td align="center">Measure for Measure</td>
@@ -163,7 +163,27 @@ Touching that point.</p>
         </td>
     </tr>
 </table>
-<footer></footer>
+</article>
+<article>
+    <h1>Addendum</h1>
+    <p>The `&lt;!DOCTYPE&gt;` tag defines the document type and version of HTML being used, in this case, HTML 4.0 Transitional. </p>
+     <p> The `&lt;html&gt;` tag encloses the entire HTML document, marking the beginning and end of the HTML code. </p> 
+     <p> The `&lt;head&gt;` tag contains meta-information about the HTML document, such as the title and character set. </p> 
+     <p> The `&lt;title&gt;` tag sets the title of the HTML page, which appears in the browser's title bar or tab. </p> 
+     <p> The `&lt;meta&gt;` tag specifies the character encoding for the document, in this case, ISO-8859-1 (Latin-1), which defines how characters are interpreted. </p> 
+     <p> The `&lt;body&gt;` tag contains all the visible content on the webpage, including text, images, and links. </p> 
+     <p> The `bgcolor` attribute inside the `&lt;body&gt;` tag sets the background color of the webpage to white (`#ffffff`), and the `text` attribute defines the text color as black (`#000000`). </p>
+     <p> The `&lt;article&gt;` tag is a semantic tag used to enclose a self-contained piece of content. It can be used to group sections of a webpage like chapters or blog posts. </p> 
+     <p> The `&lt;table&gt;` tag is used to create a table. In this case, it is used to organize the content inside a grid. </p> 
+     <p> The `width="100%"` attribute inside the `&lt;table&gt;` tag makes the table span the entire width of the webpage, and the `bgcolor="#CCF6F6"` attribute sets a light blue background color for the table. </p> 
+     <p> The `&lt;tr&gt;` tag defines a row in the table, while the `&lt;td&gt;` tag defines a cell within that row. In this code, the cells contain text and links. </p> 
+     <p> The `align="center"` attribute inside the `&lt;td&gt;` tag centers the content within that cell. </p> <p> The `&lt;a&gt;` tag creates a hyperlink, and the `href` attribute specifies the URL to which the link points. In this case, it links to different parts of Shakespeare's works. </p> 
+     <p> The `&lt;h3&gt;` tag is used to define a heading, with the number indicating the level of the heading. Here, it marks "Scene I" as a third-level heading. </p> <p> The `&lt;p&gt;` tag is used to define paragraphs of text. Each spoken part of the scene is enclosed within `&lt;p&gt;` tags. </p> 
+     <p> The `&lt;i&gt;` tag italicizes the text it contains, typically used here for stage directions or actions (e.g., "Enter ANGELO"). </p> <p> The `&lt;b&gt;` tag makes the text bold, used in this case to emphasize the names of the characters speaking. </p> 
+     <p> The `&lt;footer&gt;` tag defines the footer section of the page, typically containing closing information such as copyright or last update details. </p>
+     <p> The `&lt;script&gt;` tag is used to embed JavaScript code within the HTML document. Here, the script retrieves the last modified date of the document and displays it on the page. </p> 
+     <p> The `var x = document.lastModified;` statement in JavaScript captures the last modified date of the document, and `document.getElementById('lastModified').textContent = x;` sets the captured date as the content of the `lastModified` element.</p>
+<footer>
       <p>Last updated: 
           <span id="lastModified"></span>
       </p>
