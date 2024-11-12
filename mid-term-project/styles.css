@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #0a1128;
+    color: #fff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #7fb8ff;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(127, 184, 255, 0.5);
+}
+
+#restartButton {
+    background-color: #ff4b4b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#restartButton:hover {
+    background-color: #ff6b6b;
+}
+
+.story-image {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.story-image img {
+    max-width: 50%;
+    max-height: 50%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(127, 184, 255, 0.3);
+}
+
+.story-text {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.choice-button {
+    background-color: #2d5ba3;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1.1em;
+}
+
+.choice-button:hover {
+    background-color: #3d71bf;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #7fb8ff;
+    font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .story-text {
+        font-size: 1em;
+    }
+}
+
+/* Add these styles to your existing CSS file */
+
+.addendum {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.addendum h2 {
+    color: #7fb8ff;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.addendum h3 {
+    color: #ff4b4b;
+    margin: 25px 0 15px 0;
+}
+
+.addendum p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.addendum ol,
+.addendum ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.addendum li {
+    margin-bottom: 10px;
+}
+
+.challenge-solution {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.challenge-solution p {
+    margin-bottom: 15px;
+}
+
+.challenge-solution strong {
+    color: #7fb8ff;
+}
+
+@media (max-width: 600px) {
+    .addendum {
+        padding: 20px;
+    }
+
+    .addendum h2 {
+        font-size: 1.5em;
+    }
+
+    .addendum h3 {
+        font-size: 1.2em;
+    }
+}

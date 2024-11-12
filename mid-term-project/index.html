@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Explorer Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Space Explorer Adventure</h1>
+            <button id="restartButton" onclick="startGame()">Restart Adventure</button>
+        </header>
+        
+        <main>
+            <div id="storyImage" class="story-image">
+                <img id="sceneImage" src="/api/placeholder/600/400" alt="Scene Image">
+            </div>
+            
+            <div id="storyText" class="story-text"></div>
+            
+            <div id="choices" class="choices"></div>
+        </main>
+
+        <section id="addendum" class="addendum">
+            <h2>Addednum</h2>
+            
+            <h3>Creative Choices</h3>
+            <p>In developing this Space Explorer Adventure, I chose a space exploration theme to create an engaging and immersive experience. The decision to set the story in space opened up numerous possibilities for interesting choices and consequences, while also allowing for a visually appealing design with a dark, cosmic color scheme.</p>
+            
+            <h3>Development Process</h3>
+            <p>The development followed these key steps:</p>
+            <ol>
+                <li>First, I mapped out the story structure, ensuring multiple meaningful paths and eight distinct endings.</li>
+                <li>Created the basic HTML structure with clear semantic elements for better accessibility.</li>
+                <li>Developed the CSS with a space-themed color palette and responsive design principles.</li>
+                <li>Implemented the JavaScript logic using a clear object structure for story management.</li>
+            </ol>
+            
+            <h3>Challenges & Solutions</h3>
+            <div class="challenge-solution">
+                <p><strong>Challenge 1:</strong> Managing the complex branching narrative structure.<br>
+                <strong>Solution:</strong> Implemented a clear object-based data structure that made it easy to track and modify story paths.</p>
+                
+                <p><strong>Challenge 2:</strong> Creating a responsive design that works across devices.<br>
+                <strong>Solution:</strong> Used flexible CSS units and media queries to ensure the game remains playable and visually appealing on all screen sizes.</p>
+                
+                <p><strong>Challenge 3:</strong> Maintaining state without external storage.<br>
+                <strong>Solution:</strong> Developed a simple but effective state management system using JavaScript variables.</p>
+            </div>
+            
+            <h3>Insights Gained</h3>
+            <ul>
+                <li>Learned the importance of planning the narrative structure before coding</li>
+                <li>Discovered effective ways to manage state in interactive web applications</li>
+                <li>Gained experience in creating engaging user interfaces for interactive fiction</li>
+                <li>Understood the value of modular code structure for maintainability</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+    <script type="text/javascript">
+         var x = document.lastModified;
+         document.getElementById('lastModified').textContent = x;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
