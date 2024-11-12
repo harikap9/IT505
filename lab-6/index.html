@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Memory Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-container">
+        <header>
+            <h1>Color Memory Game</h1>
+        </header>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">High Scores</a>
+            <a href="#">Instructions</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <main>
+            <h2>Test Your Memory!</h2>
+            <p>Watch the sequence of colors and repeat it by clicking the buttons in the correct order.</p>
+            <div class="score-display">Score: <span id="score">0</span></div>
+            <button class="start-button" id="startButton">Start Game</button>
+            <div class="game-container">
+                <button class="game-button red" data-color="red"></button>
+                <button class="game-button green" data-color="green"></button>
+                <button class="game-button blue" data-color="blue"></button>
+                <button class="game-button yellow" data-color="yellow"></button>
+            </div>
+        </main>
+
+        <aside>
+            <div class="ad-container">
+                <a href="https://www.amazon.com/ThinkFun-Memory-Game-Makes-Gift/dp/B00H5W5VKE/" target="_blank">
+                    <img src="https://m.media-amazon.com/images/I/61Ojh8DWIUL._SX522_.jpg" alt="skincare">
+                </a>
+            </div>
+        </aside>
+
+        <footer>
+            <div class="addendum">
+                <h3>Addendum</h3>
+                <p>This page implements a color memory game inspired by the classic Simon game. The game uses JavaScript to manage game state, handle user input, and create sequences. The main challenges included managing the timing of the color sequences and handling asynchronous user input while preventing premature clicks. These were solved using Promises and careful state management.</p>
+            </div>
+            <p>Last updated: <span id="lastModified"></span></p>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
