@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure User Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        form {
+            background-color: #ffffff; /* White form background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            color: #2c3e50; /* Dark blue-gray text for labels */
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #bdc3c7; /* Light gray border */
+            border-radius: 4px;
+            background-color: #ecf0f1; /* Very light gray input background */
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3498db; /* Blue border on focus */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        .error {
+            color: #e74c3c; /* Vibrant red for error messages */
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2ecc71; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #27ae60; /* Darker green on hover */
+        }
+        button:active {
+            background-color: #2980b9; /* Blue when pressed */
+        }
+    </style>
+    <!-- Content Security Policy Header -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; script-src 'self' 'strict-dynamic'; object-src 'none'; base-uri 'self';">
+</head>
+<body>
+    <form id="registrationForm" autocomplete="off">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" 
+                   maxlength="50" pattern="[A-Za-z\s]+" required>
+            <div id="firstNameError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" 
+                   maxlength="50" pattern="[A-Za-z\s]+" required>
+            <div id="lastNameError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" 
+                   maxlength="100" required>
+            <div id="emailError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" 
+                   minlength="8" maxlength="50" required>
+            <div id="passwordError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" 
+                   minlength="8" maxlength="50" required>
+            <div id="confirmPasswordError" class="error"></div>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        // [Previous JavaScript remains the same]
+        // ... (all the validation and security logic from the previous example)
+        // Sanitization function to prevent XSS
+function sanitizeInput(input) {
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
+
+// Enhanced input validation and sanitization
+function validateInput(input, type = 'text') {
+    // Remove any potential script tags or HTML
+    let sanitizedInput = sanitizeInput(input.trim());
+
+    switch(type) {
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(sanitizedInput)) {
+                throw new Error('Invalid email format');
+            }
+            break;
+        case 'name':
+            // Ensure only letters and spaces
+            if (!/^[A-Za-z\s]+$/.test(sanitizedInput)) {
+                throw new Error('Invalid characters in name');
+            }
+            break;
+        case 'password':
+            if (sanitizedInput.length < 8) {
+                throw new Error('Password too short');
+            }
+            break;
+    }
+
+    return sanitizedInput;
+}
+
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    // Prevent form from submitting
+    event.preventDefault();
+
+    // Reset previous error messages
+    const errorElements = document.querySelectorAll('.error');
+    errorElements.forEach(el => el.textContent = '');
+
+    try {
+        // Validate and sanitize inputs
+        const firstName = validateInput(document.getElementById('firstName').value, 'name');
+        const lastName = validateInput(document.getElementById('lastName').value, 'name');
+        const email = validateInput(document.getElementById('email').value, 'email');
+        const password = validateInput(document.getElementById('password').value, 'password');
+        const confirmPassword = validateInput(document.getElementById('confirmPassword').value, 'password');
+
+        // Check password match
+        if (password !== confirmPassword) {
+            throw new Error('Passwords do not match');
+        }
+
+        // If all validations pass, prepare data for submission
+        const formData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            // NEVER log or display full password
+            passwordHash: hashPassword(password) // Hypothetical secure hashing
+        };
+
+        // In a real-world scenario, you would send this via HTTPS
+        console.log('Form data prepared securely');
+        alert('Form submitted successfully!');
+        this.reset();
+
+    } catch (error) {
+        // Display specific error messages
+        switch(error.message) {
+            case 'Invalid email format':
+                document.getElementById('emailError').textContent = error.message;
+                break;
+            case 'Invalid characters in name':
+                document.getElementById('firstNameError').textContent = error.message;
+                document.getElementById('lastNameError').textContent = error.message;
+                break;
+            case 'Password too short':
+                document.getElementById('passwordError').textContent = error.message;
+                break;
+            case 'Passwords do not match':
+                document.getElementById('confirmPasswordError').textContent = error.message;
+                break;
+            default:
+                console.error('Unexpected error:', error);
+        }
+    }
+});
+
+// Hypothetical password hashing (would be done server-side)
+function hashPassword(password) {
+    // In reality, use a secure server-side hashing method
+    // This is a placeholder
+    return btoa(password); // Base64 encoding (NOT secure, just for illustration)
+}
+
+// Prevent common XSS techniques
+document.addEventListener('DOMContentLoaded', () => {
+    // Disable paste on sensitive fields
+    ['password', 'confirmPassword'].forEach(id => {
+        document.getElementById(id).addEventListener('paste', (e) => {
+            e.preventDefault();
+            alert('Paste is disabled for security reasons');
+        });
+    });
+});
+    </script>
+</body>
+</html>
