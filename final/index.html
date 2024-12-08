@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lights Out Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+
+        .game-cell {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border: 2px solid #333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .game-cell.is-off {
+            background-color: black;
+        }
+
+        #reset-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #reset-button:hover {
+            background-color: #45a049;
+        }
+
+        .addendum {
+            max-width: 800px;
+            margin: 30px 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .addendum h2 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lights Out</h1>
+        <div id="game-board" class="game-board"></div>
+        <button id="reset-button">Reset Game</button>
+        
+        <div class="addendum">
+            <h2>Development Addendum: Crafting the Lights Out Puzzle</h2>
+            
+            <h3>Project Concept</h3>
+            <p>Lights Out is a puzzle game where players must turn off all lights by strategically clicking cells, with each click toggling the state of the clicked cell and its adjacent cells.</p>
+            
+            <h3>Technical Challenges</h3>
+            <ul>
+                <li>Generating a solvable random board configuration</li>
+                <li>Implementing efficient cell toggling logic</li>
+                <li>Managing game state and win conditions</li>
+            </ul>
+            
+            <h3>Key Implementation Strategies</h3>
+            <ul>
+                <li>Used object-oriented JavaScript to manage game logic</li>
+                <li>Created a 5x5 grid with dynamic interaction</li>
+                <li>Implemented randomized initial board state</li>
+            </ul>
+            
+            <h3>Development Insights</h3>
+            <p>This project demonstrated the importance of:</p>
+            <ul>
+                <li>State management in interactive applications</li>
+                <li>Event-driven programming</li>
+                <li>Creating engaging user experiences</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+
+    <script>
+        // [Existing JavaScript code remains unchanged]
+        class LightsOutGame {
+            constructor(size = 5) {
+                this.size = size;
+                this.board = Array(size * size).fill(false);
+                this.gameBoard = document.getElementById('game-board');
+                this.resetButton = document.getElementById('reset-button');
+                
+                this.initializeGame();
+                this.setupEventListeners();
+            }
+
+            initializeGame() {
+                // Clear previous board
+                this.gameBoard.innerHTML = '';
+                
+                // Create game board cells
+                for (let i = 0; i < this.size * this.size; i++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('game-cell');
+                    cell.dataset.index = i;
+                    this.gameBoard.appendChild(cell);
+                }
+
+                // Randomize the board to create a solvable configuration
+                this.randomizeBoard();
+            }
+
+            randomizeBoard() {
+                // Start with an all-white board
+                this.board.fill(false);
+
+                // Simulate random clicks to create a solvable configuration
+                const randomClicks = Math.floor(Math.random() * 10) + 5; // 5-15 random clicks
+                for (let i = 0; i < randomClicks; i++) {
+                    const randomIndex = Math.floor(Math.random() * (this.size * this.size));
+                    this.toggleCell(randomIndex);
+                }
+
+                // Update visual board
+                this.updateBoardDisplay();
+            }
+
+            setupEventListeners() {
+                // Add click listener to game board
+                this.gameBoard.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('game-cell')) {
+                        const index = parseInt(e.target.dataset.index);
+                        this.toggleCell(index);
+                        this.checkWinCondition();
+                    }
+                });
+
+                // Add reset button listener
+                this.resetButton.addEventListener('click', () => this.initializeGame());
+            }
+
+            toggleCell(index) {
+                // Toggle the clicked cell
+                this.board[index] = !this.board[index];
+
+                // Toggle adjacent cells
+                const adjacentIndices = this.getAdjacentIndices(index);
+                adjacentIndices.forEach(adjIndex => {
+                    this.board[adjIndex] = !this.board[adjIndex];
+                });
+
+                // Update visual board
+                this.updateBoardDisplay();
+            }
+
+            getAdjacentIndices(index) {
+                const adjacentIndices = [];
+                const row = Math.floor(index / this.size);
+                const col = index % this.size;
+
+                // Check cell above
+                if (row > 0) adjacentIndices.push(index - this.size);
+                // Check cell below
+                if (row < this.size - 1) adjacentIndices.push(index + this.size);
+                // Check cell to the left
+                if (col > 0) adjacentIndices.push(index - 1);
+                // Check cell to the right
+                if (col < this.size - 1) adjacentIndices.push(index + 1);
+
+                return adjacentIndices;
+            }
+
+            updateBoardDisplay() {
+                const cells = this.gameBoard.querySelectorAll('.game-cell');
+                cells.forEach((cell, index) => {
+                    cell.classList.toggle('is-off', this.board[index]);
+                });
+            }
+
+            checkWinCondition() {
+                // Check if all lights are off (true)
+                const allOff = this.board.every(cell => !cell);
+                if (allOff) {
+                    window.alert('You win!');
+                }
+            }
+        }
+
+        // Initialize the game when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new LightsOutGame();
+        });
+
+        // Last modified script
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+        // Last modified script
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+        // Last modified script
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
